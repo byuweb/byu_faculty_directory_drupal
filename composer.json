@@ -1,14 +1,14 @@
 {
-  "name": "drupal/byu_faculty_directory_d8",
+  "name": "drupal/byu_byu_faculty_directory",
   "type": "drupal-module",
   "description": "Displays a BYU faculty directory.",
   "keywords": ["Drupal"],
   "license": "GPL-2.0+",
-  "homepage": "https://www.drupal.org/project/byu_faculty_directory_d8",
+  "homepage": "https://www.drupal.org/project/byu_byu_faculty_directory",
   "minimum-stability": "dev",
   "support": {
-    "issues": "https://www.drupal.org/project/issues/byu_faculty_directory_d8",
-    "source": "http://cgit.drupalcode.org/byu_faculty_directory_d8"
+    "issues": "https://www.drupal.org/project/issues/byu_byu_faculty_directory",
+    "source": "http://cgit.drupalcode.org/byu_byu_faculty_directory"
   },
   "require": { }
 }
