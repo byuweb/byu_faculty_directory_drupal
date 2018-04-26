@@ -1,8 +1,11 @@
 name: BYU Faculty Directory
-type: module
-description: Displays a BYU faculty directory.
+description: Creates a BYU Faculty Member content type and a Faculty Directory Listing view block.
 package: BYU
+
+type: module
 core: 8.x
+
 dependencies:
-  - node
-  #- block
+- drupal:views
+
+php: 5.6

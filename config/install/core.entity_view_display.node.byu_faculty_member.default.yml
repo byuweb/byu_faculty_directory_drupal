@@ -1,0 +1,108 @@
+langcode: en
+status: true
+dependencies:
+  config:
+    - field.field.node.byu_faculty_member.field_awards
+    - field.field.node.byu_faculty_member.field_awards_override
+    - field.field.node.byu_faculty_member.field_biography
+    - field.field.node.byu_faculty_member.field_biography_override
+    - field.field.node.byu_faculty_member.field_committees
+    - field.field.node.byu_faculty_member.field_committees_override
+    - field.field.node.byu_faculty_member.field_courses
+    - field.field.node.byu_faculty_member.field_courses_override
+    - field.field.node.byu_faculty_member.field_custom_content
+    - field.field.node.byu_faculty_member.field_custom_title
+    - field.field.node.byu_faculty_member.field_education
+    - field.field.node.byu_faculty_member.field_education_override
+    - field.field.node.byu_faculty_member.field_email
+    - field.field.node.byu_faculty_member.field_email_override
+    - field.field.node.byu_faculty_member.field_first_name
+    - field.field.node.byu_faculty_member.field_first_name_override
+    - field.field.node.byu_faculty_member.field_last_name
+    - field.field.node.byu_faculty_member.field_last_name_override
+    - field.field.node.byu_faculty_member.field_links
+    - field.field.node.byu_faculty_member.field_links_override
+    - field.field.node.byu_faculty_member.field_office_hours
+    - field.field.node.byu_faculty_member.field_office_hours_override
+    - field.field.node.byu_faculty_member.field_office_location
+    - field.field.node.byu_faculty_member.field_office_location_override
+    - field.field.node.byu_faculty_member.field_phone_number
+    - field.field.node.byu_faculty_member.field_phone_number_override
+    - field.field.node.byu_faculty_member.field_profile_image
+    - field.field.node.byu_faculty_member.field_profile_image_override
+    - field.field.node.byu_faculty_member.field_publications
+    - field.field.node.byu_faculty_member.field_publications_override
+    - field.field.node.byu_faculty_member.field_research_long
+    - field.field.node.byu_faculty_member.field_research_long_override
+    - field.field.node.byu_faculty_member.field_research_short
+    - field.field.node.byu_faculty_member.field_research_short_override
+    - field.field.node.byu_faculty_member.field_students
+    - field.field.node.byu_faculty_member.field_students_override
+    - field.field.node.byu_faculty_member.field_title
+    - field.field.node.byu_faculty_member.field_title_override
+    - field.field.node.byu_faculty_member.field_uid
+    - field.field.node.byu_faculty_member.field_uid_override
+    - node.type.byu_faculty_member
+  module:
+    - field_layout
+    - layout_discovery
+    - user
+third_party_settings:
+  field_layout:
+    id: layout_onecol
+    settings: {  }
+id: node.byu_faculty_member.default
+targetEntityType: node
+bundle: byu_faculty_member
+mode: default
+content:
+  field_resear:
+    weight: 112
+    label: above
+    settings:
+      link_to_entity: false
+    third_party_settings: {  }
+    type: string
+    region: content
+hidden:
+  field_awards: true
+  field_awards_override: true
+  field_biography: true
+  field_biography_override: true
+  field_committees: true
+  field_committees_override: true
+  field_courses: true
+  field_courses_override: true
+  field_custom_content: true
+  field_custom_title: true
+  field_education: true
+  field_education_override: true
+  field_email: true
+  field_email_override: true
+  field_first_name: true
+  field_first_name_override: true
+  field_last_name: true
+  field_last_name_override: true
+  field_links: true
+  field_links_override: true
+  field_office_hours: true
+  field_office_hours_override: true
+  field_office_location: true
+  field_office_location_override: true
+  field_phone_number: true
+  field_phone_number_override: true
+  field_profile_image: true
+  field_profile_image_override: true
+  field_publications: true
+  field_publications_override: true
+  field_research_long: true
+  field_research_long_override: true
+  field_research_short: true
+  field_research_short_override: true
+  field_students: true
+  field_students_override: true
+  field_title: true
+  field_title_override: true
+  field_uid: true
+  field_uid_override: true
+  links: true

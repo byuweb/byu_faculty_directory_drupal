@@ -2,34 +2,18 @@
 
 /**
  * @file
- * Contains byu_faculty_directory.module.
+ * Contains faculty_view.module
  */
 
-/**
- * Implements hook_theme().
- */
 function byu_faculty_directory_theme() {
-  global $base_root, $base_path;
-  $variables = [
-    'byu_faculty_directory' => [
-      'variables' => [
-        'entries' => NULL,
-        'template' => NULL,
-        'background_image' => $base_root . $base_path . drupal_get_path('module', 'byu_faculty_directory') . '/images/background-image.jpg',
-      ],
-      'template' => 'byu-faculty-directory'
-    ]
-  ];
-
-  return $variables;
-  /*$theme = array();
-  $theme['byu_faculty_directory'] = array(
-    'variables' => array(
-        'entries' => NULL,
-        'template' => NULL,
-      ),
-      'template' => 'byu-faculty-directory',
-  )
-
-  return $theme;*/
+    return [
+        'node__byu_faculty_member' => [
+            'base hook' => 'node',
+            'template' => 'node--byu-faculty-member',
+        ],
+        'views_view_fields__faculty_directory_listing' => [
+            'base hook' => 'views-view-fields',
+            'template' => 'views-view-fields--faculty-directory-listing',
+        ],
+    ];
 }

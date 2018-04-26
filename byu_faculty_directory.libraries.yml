@@ -1,24 +1,14 @@
-byu-faculty-directory-drupal-css:
-  version: VERSION
-  css:
-    theme:
-      css/byu-faculty-directory-custom.css: {}
-faculty-directory-component-js:
-  remote: https://github.com/byuweb/byu-faculty-directory/
-  version: latest
+component-1.x.x:
+  remote: https://github.com/byuweb/byu-faculty-directory
+  version: 1.x.x
   license:
     name: BYUWeb
     url: https://github.com/byuweb/byu-faculty-directory/blob/master/LICENSE
     gpl-compatible: true
-  js:
-     https://cdn.byu.edu/byu-faculty-directory/latest/byu-faculty-directory.min.js: { type: external, minified: true }
-faculty-directory-component-css:
-  remote: https://github.com/byuweb/byu-faculty-directory/
-  version: latest
-  license:
-    name: BYUWebCSS
-    url: https://github.com/byuweb/byu-faculty-directory/blob/master/LICENSE
-    gpl-compatible: true
   css:
     theme:
-      https://cdn.byu.edu/byu-faculty-directory/latest/byu-faculty-directory.min.css: { type: external, minified: true }
+      https://cdn.byu.edu/byu-faculty-directory/1.x.x/byu-faculty-directory.min.css: {preprocess: false}
+  js:
+    https://cdn.byu.edu/byu-faculty-directory/1.x.x/byu-faculty-directory.min.js: {preprocess: false}
+ dependencies:
+  - core/jquery

@@ -1,14 +1,7 @@
-byu_faculty_directory.listing:
-  path: '/faculty_directory'
+byu_faculty_directory.form:
+  path: '/admin/config/content/byu_faculty_directory_config'
   defaults:
-    _controller: '\Drupal\byu_faculty_directory\Controller\DirectoryController::listingRender'
+    _title: 'BYU Faculty Directory Configuration'
+    _form: '\Drupal\byu_faculty_directory\Form\BYUFacultyDirectoryForm'
   requirements:
-    _permission: 'access content'
-
-byu_faculty_directory.profile:
-  path: '/faculty_directory/{id}'
-  defaults:
-    _controller: '\Drupal\byu_faculty_directory\Controller\DirectoryController::profileRender'
-  requirements:
-    _permission: 'access content'
-    id: '^[a-zA-Z0-9_]+'
+    _permission: 'administer site configuration'
