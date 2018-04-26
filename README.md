@@ -5,6 +5,8 @@ Table of Contents
 * Requirements
 * Installation
 * Configuration
+* Work in Progress
+* Maintainers
 
 
 Introduction
@@ -36,3 +38,26 @@ This module creates a block called "Faculty Directory Listing". Place this block
 This module also creates a content type called "BYU Faculty Member". To add faculty members from BYU OIT's data, visit the configuration page (Home > Administration > Configuration > Content Authoring > BYU Faculty Directory Configuration). Select the appropriate checkboxes depending on if you want to download data, create content from downloaded data, or both, and click "Save Configuration".
 
 Certain departments may want to manually edit faculty member fields (e.g. to add details about a specific course in the Courses Taught field), and this can be done by editing the faculty member's node and clicking the "[field name] Override" checkbox. This will tell the module to not override this field with data from OIT.
+
+
+Work in Progress
+----------------
+
+Still do to:
+	- Verify and finalize faculty member fields
+	- Customize API key
+	- Customize background image on profile page
+	- Create submodule for individual departments, REST API
+	- Filter data download by department
+	- Pagination of faculty directory Listing
+	- Fetch profile pictures, CVs from OIT
+	- Automate download of data
+	- Other tasks as needs arise
+	
+
+Maintainers
+-----------
+
+Current maintainers:
+	- Sam Beckett (sbeck14) - https://www.drupal.org/user/1405076
+
