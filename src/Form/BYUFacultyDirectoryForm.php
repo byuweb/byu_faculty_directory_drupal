@@ -28,7 +28,13 @@ class BYUFacultyDirectoryForm extends ConfigFormBase {
      * {@inheritdoc}
      */
     public function buildForm(array $form, FormStateInterface $form_state) {
-        $config = $this->config('byu_faculty_directory_form.settings');
+        $config = $this->config('byu_faculty_directory.config');
+
+        $form['api_key'] = array(
+          '#type' => 'textfield',
+          '#title' => t('API Key for OIT Data Retrieval'),
+          '#default_value' => $config->get('api_key'),
+        );
 
         $form['fetch_all_faculty'] = array(
             '#type' => 'checkbox',
@@ -56,7 +62,9 @@ class BYUFacultyDirectoryForm extends ConfigFormBase {
      * {@inheritdoc}
      */
     public function validateForm(array &$form, FormStateInterface $form_state){
-        //stub
+        if(strlen($form_state->getValue('api_key')) < 1) {
+            $form_state->setErrorByName('api_key', $this->t('Please enter something in the API key field.'));
+        }
     }
 
     /**
@@ -65,19 +73,47 @@ class BYUFacultyDirectoryForm extends ConfigFormBase {
     public function submitForm(array &$form, FormStateInterface $form_state){
         $fetch = $form_state->getValue('fetch_all_faculty');
         $create = $form_state->getValue('create_content');
+        $old_api_key = \Drupal::config('byu_faculty_directory.config')->get('api_key');
+        $new_api_key = $form_state->getValue('api_key');
+
         if ($fetch == 1) {
-            BYUFacultyDirectoryForm::getFacultyFromAPI();
+            try {
+                BYUFacultyDirectoryForm::getFacultyFromAPI();
+                drupal_set_message(t('Successfully retrieved faculty data from OIT!'), 'status');
+            } catch (\Exception $e) {
+                drupal_set_message($e->getMessage(), 'error');
+            }
         }
         if ($create == 1) {
-            BYUFacultyDirectoryForm::createContent();
+            try {
+                BYUFacultyDirectoryForm::createContent();
+                drupal_set_message(t('Successfully created content from cached faculty data!'), 'status');
+            } catch (\Exception $e) {
+                drupal_set_message($e->getMessage(), 'error');
+            }
+        }
+        if (strcmp($old_api_key, $new_api_key) !== 0) {
+            \Drupal::service('config.factory')->getEditable("byu_faculty_directory.config")->set("api_key", $new_api_key)->save();
+            drupal_set_message(t('API key updated!'), 'status');
         }
     }
 
     /**
      * Gets ALL faculty members from API (with just basic information) and stores them in a file
+     * @throws \Exception upon failed connection to OIT database
      */
     private function getFacultyFromAPI(){
-        $result = file_get_contents("https://ws.byu.edu/services/facultyProfile/faculty?applicationKey=53181AnEk07UqNAjYHlsP7b3UfP8kuIx");
+        $api_key = \Drupal::config('byu_faculty_directory.config')->get('api_key');
+
+        try {
+            $result = file_get_contents("https://ws.byu.edu/services/facultyProfile/faculty?applicationKey=".$api_key);
+            if ($result === false) {
+                throw new \Exception('getFacultyFromAPI(): 500 Response Recieved - Invalid Application Key. No changes made to cached data');
+            }
+        } catch (\Exception $e) {
+            throw new \Exception('getFacultyFromAPI(): Destination Unreachable - No changes made to cached data. Check application key and status of ws.byu.edu.');
+        }
+
         $data = new \SimpleXMLElement($result);
         $netids = array();
         $netid_attribute = 'username';
@@ -86,15 +122,14 @@ class BYUFacultyDirectoryForm extends ConfigFormBase {
         //Get all netids
         foreach($data->Record as $record) {
             foreach($record->children('dmd', true)->IndexEntry as $indexentry){
-                $netids[] = (string)$record->attributes()->$netid_attribute;
+                //$netids[] = (string)$record->attributes()->$netid_attribute;
 
-                /*
                 //Filter by ChemE (for testing, reduces download/parsing time)
                 if ((string)($indexentry->attributes()->{'text'}) === 'ENG: Chemical Engineering'){
                     $netids[] = (string)$record->attributes()->$netid_attribute;
                     break;
                 }
-                */
+
             }
         }
 
@@ -102,7 +137,7 @@ class BYUFacultyDirectoryForm extends ConfigFormBase {
         file_put_contents($filename,$file_header);
 
         foreach($netids as $netid){
-            $netid_data = file_get_contents('https://ws.byu.edu/services/facultyProfile/faculty/'.$netid.'/profile/?applicationKey=53181AnEk07UqNAjYHlsP7b3UfP8kuIx');
+            $netid_data = file_get_contents('https://ws.byu.edu/services/facultyProfile/faculty/'.$netid.'/profile/?applicationKey='.$api_key);
             //Strip <?xml ... ?\> so we don't have duplicates
             $netid_data = preg_replace("/<\?xml.*\?>/i", "", $netid_data);
             $netid_data = $netid_data."\n";

@@ -10,5 +10,5 @@ component-1.x.x:
       https://cdn.byu.edu/byu-faculty-directory/1.x.x/byu-faculty-directory.min.css: {preprocess: false}
   js:
     https://cdn.byu.edu/byu-faculty-directory/1.x.x/byu-faculty-directory.min.js: {preprocess: false}
- dependencies:
+  dependencies:
   - core/jquery

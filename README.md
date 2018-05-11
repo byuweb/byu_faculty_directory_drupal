@@ -33,11 +33,15 @@ https://www.drupal.org/docs/8/extending-drupal-8/installing-drupal-8-modules for
 Configuration
 -------------
 
+An API key must be specified in order to retrieve data from the BYU OIT faculty database. This key can be set in the configuration page (Home > Administration > Configuration > Content Authoring > BYU Faculty Directory Configuration). See https://developer.byu.edu/api/facultyprofile for more information.
+
 This module creates a block called "Faculty Directory Listing". Place this block in an appropriate region to display the faculty directory.
 
 This module also creates a content type called "BYU Faculty Member". To add faculty members from BYU OIT's data, visit the configuration page (Home > Administration > Configuration > Content Authoring > BYU Faculty Directory Configuration). Select the appropriate checkboxes depending on if you want to download data, create content from downloaded data, or both, and click "Save Configuration".
 
 Certain departments may want to manually edit faculty member fields (e.g. to add details about a specific course in the Courses Taught field), and this can be done by editing the faculty member's node and clicking the "[field name] Override" checkbox. This will tell the module to not override this field with data from OIT.
+
+To customize the API key used to retrieve data 
 
 
 Work in Progress
@@ -45,7 +49,6 @@ Work in Progress
 
 Still do to:
 	- Verify and finalize faculty member fields
-	- Customize API key
 	- Customize background image on profile page
 	- Create submodule for individual departments, REST API
 	- Filter data download by department
