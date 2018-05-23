@@ -16,6 +16,8 @@ class BYUFacultyDirectoryForm extends ConfigFormBase {
     }
 
     /**
+     *
+     *
      * @inheritdoc}
      */
     protected function getEditableConfigNames() {
@@ -36,6 +38,20 @@ class BYUFacultyDirectoryForm extends ConfigFormBase {
           '#default_value' => $config->get('api_key'),
         );
 
+        $form['profile_background_image'] = array(
+            '#type' => 'managed_file',
+            '#title' => t('Faculty Profile Background Image'),
+            '#upload_validators' => [
+                'file_validate_extensions' => ['gif png jpg jpeg'],
+                'file_validate_size' => [25600000],
+            ],
+            '#widget' => 'imce',
+            '#upload_location' => 'public://byu_faculty_directory/',
+            '#preview' => TRUE,
+            '#required' => FALSE,
+            '#default_value' => $config->get('profile_background_image'),
+        );
+
         $form['fetch_all_faculty'] = array(
             '#type' => 'checkbox',
             '#title' => t('Download all faculty data from the OIT API'),
@@ -48,14 +64,7 @@ class BYUFacultyDirectoryForm extends ConfigFormBase {
             '#default_value' => $config->get('create_content'),
         );
 
-        /*
-        $form['submit'] = array(
-          '#type' => 'submit',
-          '#value' => t('Submit'),
-        );
-        */
         return parent::buildForm($form, $form_state);
-
     }
 
     /**
@@ -75,6 +84,33 @@ class BYUFacultyDirectoryForm extends ConfigFormBase {
         $create = $form_state->getValue('create_content');
         $old_api_key = \Drupal::config('byu_faculty_directory.config')->get('api_key');
         $new_api_key = $form_state->getValue('api_key');
+        $old_profile_background_image = \Drupal::config('byu_faculty_directory.config')->get('profile_background_image');
+        $profile_background_image = $form_state->getValue('profile_background_image');
+
+        if (strcmp($old_api_key, $new_api_key) !== 0) {
+            \Drupal::service('config.factory')->getEditable("byu_faculty_directory.config")->set("api_key", $new_api_key)->save();
+            drupal_set_message(t('API key updated!'), 'status');
+        }
+
+        if (strcmp($old_profile_background_image[0], $profile_background_image[0]) !== 0){
+            // Load the object of the file by its fid
+            $file = \Drupal\file\Entity\File::load($profile_background_image[0]);
+            if ($file != null) {
+                // Set the status flag permanent of the file object.
+                if (!empty($file)) {
+                    $file->setPermanent();
+                    // Save the file in the database.
+                    $file->save();
+                    $file_usage = \Drupal::service('file.usage');
+                    $file_usage->add($file, 'byu_faculty_directory', 'file', \Drupal::currentUser()->id());
+                }
+                \Drupal::service('config.factory')->getEditable("byu_faculty_directory.config")
+                    ->set('profile_background_image', $profile_background_image)->save();
+
+                drupal_set_message(t('Profile background image updated! Clear cache to display changes.'), 'status');
+                drupal_set_message(t('New background image URL: ').$file->url('canonical'), 'status');
+            }
+        }
 
         if ($fetch == 1) {
             try {
@@ -91,10 +127,6 @@ class BYUFacultyDirectoryForm extends ConfigFormBase {
             } catch (\Exception $e) {
                 drupal_set_message($e->getMessage(), 'error');
             }
-        }
-        if (strcmp($old_api_key, $new_api_key) !== 0) {
-            \Drupal::service('config.factory')->getEditable("byu_faculty_directory.config")->set("api_key", $new_api_key)->save();
-            drupal_set_message(t('API key updated!'), 'status');
         }
     }
 
@@ -405,12 +437,17 @@ class BYUFacultyDirectoryForm extends ConfigFormBase {
             //e.g. ME EN 497R Section 026 - Fall 2017
             $courses = "<ul><br>";
             foreach ($facultyProfile->Record->SCHTEACH as $entry) {
-                $course_entry = $entry->COURSEPRE . ' ' . $entry->COURSENUM;
-                if ((string)$entry->COURSENUM_SUFFIX) {
-                    $course_entry = $course_entry . $entry->COURSENUM_SUFFIX;
+
+                //Ignore everything before last year
+                $curr_year = date('Y');
+                if (($curr_year - $entry->TYY_TERM) <= 1){
+                    $course_entry = $entry->COURSEPRE . ' ' . $entry->COURSENUM;
+                    if ((string)$entry->COURSENUM_SUFFIX) {
+                        $course_entry = $course_entry . $entry->COURSENUM_SUFFIX;
+                    }
+                    $course_entry = $course_entry . ' Section ' . $entry->SECTION . ' - ' . $entry->TYT_TERM . ' ' . $entry->TYY_TERM;
+                    $courses = $courses."<li>$course_entry</li><br>";
                 }
-                $course_entry = $course_entry . ' Section ' . $entry->SECTION . ' - ' . $entry->TYT_TERM . ' ' . $entry->TYY_TERM;
-                $courses = $courses."<li>$course_entry</li><br>";
             }
             $courses = $courses."</ul>";
 
