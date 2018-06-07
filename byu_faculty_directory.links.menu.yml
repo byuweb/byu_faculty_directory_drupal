@@ -1,3 +1,4 @@
+# Adds the BYU Faculty Directory Configuration link under 'Content' on the admin pages
 byu_faculty_directory.form:
   title: 'BYU Faculty Directory Configuration'
   description: 'Configure the BYU Faculty Directory module.'

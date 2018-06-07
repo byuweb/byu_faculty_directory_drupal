@@ -1,3 +1,6 @@
+# Routing Configuration for BYU Faculty Directory
+
+# Configuration Form
 byu_faculty_directory.form:
   path: '/admin/config/content/byu_faculty_directory_config'
   defaults:
@@ -5,3 +8,19 @@ byu_faculty_directory.form:
     _form: '\Drupal\byu_faculty_directory\Form\BYUFacultyDirectoryForm'
   requirements:
     _permission: 'administer site configuration'
+
+# GET Route for Download All Faculty API
+byu_faculty_directory.get:
+  path: '/byu-faculty-directory/all-faculty'
+  defaults: { _controller: '\Drupal\byu_faculty_directory\Controller\BYUFacultyDirectoryController::all_faculty' }
+  methods: [GET]
+  requirements:
+    _access: 'TRUE'
+
+# POST Route for Download Filtered Faculty API
+byu_faculty_directory.post:
+  path: '/byu-faculty-directory/filtered-faculty'
+  defaults: { _controller: 'Drupal\byu_faculty_directory\Controller\BYUFacultyDirectoryController::filtered_faculty' }
+  methods: [POST]
+  requirements:
+    _access: 'TRUE'

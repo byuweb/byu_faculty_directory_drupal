@@ -1,4 +1,3 @@
-uuid: 624e1924-047b-4ad7-8ead-96797b14f209
 langcode: en
 status: true
 dependencies:
@@ -13,6 +12,8 @@ dependencies:
     - field.field.node.byu_faculty_member.field_courses_override
     - field.field.node.byu_faculty_member.field_custom_content
     - field.field.node.byu_faculty_member.field_custom_title
+    - field.field.node.byu_faculty_member.field_department
+    - field.field.node.byu_faculty_member.field_department_override
     - field.field.node.byu_faculty_member.field_education
     - field.field.node.byu_faculty_member.field_education_override
     - field.field.node.byu_faculty_member.field_email
@@ -55,8 +56,6 @@ third_party_settings:
   field_layout:
     id: layout_onecol
     settings: {  }
-_core:
-  default_config_hash: I2NwdbUUdASVcNG513DfW9pU5t4Qznixqcx0w0Eoy1w
 id: node.byu_faculty_member.default
 targetEntityType: node
 bundle: byu_faculty_member
@@ -143,6 +142,21 @@ content:
       placeholder: ''
     third_party_settings: {  }
     type: string_textfield
+    region: content
+  field_department:
+    weight: 45
+    settings:
+      size: 60
+      placeholder: ''
+    third_party_settings: {  }
+    type: string_textfield
+    region: content
+  field_department_override:
+    weight: 46
+    settings:
+      display_label: true
+    third_party_settings: {  }
+    type: boolean_checkbox
     region: content
   field_education:
     weight: 42
