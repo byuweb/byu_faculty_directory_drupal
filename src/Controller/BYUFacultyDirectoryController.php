@@ -11,7 +11,6 @@ use Drupal\Core\Controller\ControllerBase;
 
 use Symfony\Component\HttpFoundation\Request;
 use Symfony\Component\HttpFoundation\JsonResponse;
-
 /**
  * Controller routines for byu_faculty_directory routes.
  */
@@ -39,6 +38,57 @@ class BYUFacultyDirectoryController extends ControllerBase {
             $response['error'] = 'Invalid application key.';
             return new JsonResponse($response, 401);
         }
+
+        //Get all faculty members
+        $faculty_members = BYUFacultyDirectoryController::load_faculty_members('type', 'byu_faculty_member');
+
+        $response['data'] = $faculty_members;
+        return new JsonResponse($response);
+    }
+
+    /**
+     * GET
+     */
+    public function faculty_files(Request $request) {
+        //Don't do anything in child mode
+        $current_mode = \Drupal::config('byu_faculty_directory.config')->get('module_mode');
+        if ($current_mode != BYUFacultyDirectoryController::ParentMode){
+            $response['error'] = 'Resource not found.';
+            return new JsonResponse($response, 404);
+        }
+
+        if (!BYUFacultyDirectoryController::verify_api_key($request)) {
+            $response['error'] = 'Invalid application key.';
+            return new JsonResponse($response, 401);
+        }
+
+        $netid = $request->get('netid');
+
+        if (!$netid) {
+            $response['error'] = 'Missing netid.';
+            return new JsonResponse($response);
+        }
+
+        //Load files for the netid
+        $uid_query = \Drupal::entityTypeManager()
+            ->getStorage('node')
+            ->loadByProperties(['field_uid' => $netid]);
+        if ($node = reset($uid_query)) {
+            $uri = $node->field_cv->entity->getFileUri();
+            $cv_url = file_create_url($uri);
+            $uri = $node->field_profile_image->entity->getFileUri();
+            $image_url = file_create_url($uri);
+            $response['data'] = [
+                'vita' => (string)$cv_url,
+                'photo' => (string)$image_url
+            ];
+            return new JsonResponse($response);
+
+        } else {
+            $response['error'] = 'Invalid netid.';
+            return new JsonResponse($response);
+        }
+
 
         //Get all faculty members
         $faculty_members = BYUFacultyDirectoryController::load_faculty_members('type', 'byu_faculty_member');

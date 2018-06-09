@@ -12,6 +12,8 @@ dependencies:
     - field.field.node.byu_faculty_member.field_courses_override
     - field.field.node.byu_faculty_member.field_custom_content
     - field.field.node.byu_faculty_member.field_custom_title
+    - field.field.node.byu_faculty_member.field_cv
+    - field.field.node.byu_faculty_member.field_cv_override
     - field.field.node.byu_faculty_member.field_department
     - field.field.node.byu_faculty_member.field_department_override
     - field.field.node.byu_faculty_member.field_education
@@ -47,6 +49,7 @@ dependencies:
     - node.type.byu_faculty_member
   module:
     - field_layout
+    - file
     - layout_discovery
     - user
 third_party_settings:
@@ -58,6 +61,24 @@ targetEntityType: node
 bundle: byu_faculty_member
 mode: default
 content:
+  field_cv:
+    weight: 113
+    label: above
+    settings:
+      use_description_as_link_text: true
+    third_party_settings: {  }
+    type: file_default
+    region: content
+  field_cv_override:
+    weight: 114
+    label: above
+    settings:
+      format: default
+      format_custom_false: ''
+      format_custom_true: ''
+    third_party_settings: {  }
+    type: boolean
+    region: content
   field_resear:
     weight: 112
     label: above

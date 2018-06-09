@@ -115,16 +115,6 @@ The faculty member directory uses the View module, which means the directory can
 
 Each generated profile page for faculty members has the same background/header image. This image can be changed from the default in the module configuration page. Just upload an image under 'Faculty Profile Background Image' and the changes will be applied the next time you clear the cache (Configuration > Performance > Clear all caches).
 
-Work in Progress
-----------------
-
-Still do to:
-
-	- Verify and finalize faculty member fields
-	- Automation of Data Retrieval
-	- Sanitize base URL input (add http:// if needed, trailing slash)
-	- Add retrieval of profile images, CVs
-
 Maintainers
 -----------
 

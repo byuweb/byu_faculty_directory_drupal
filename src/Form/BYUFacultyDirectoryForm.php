@@ -84,10 +84,10 @@ class BYUFacultyDirectoryForm extends ConfigFormBase {
         );
         $form['module']['#tree'] = TRUE;
         $form['module']['mode'] = array(
-          '#type' => 'radios',
-          '#title' => t('Module Mode'),
-          '#default_value' => $current_mode,
-          '#options' => array(
+            '#type' => 'radios',
+            '#title' => t('Module Mode'),
+            '#default_value' => $current_mode,
+            '#options' => array(
                 0 => t('Parent'),
                 1 => t('Child'),
             ),
@@ -135,6 +135,36 @@ class BYUFacultyDirectoryForm extends ConfigFormBase {
                 '#title' => t('API Key for Child REST API'),
                 '#default_value' => $config->get('dept_api_key'),
             );
+            $form['api']['proxy_server_label'] = array(
+                '#markup' => '<b><u>Proxy Server Settings</u></b><br>Connection settings for a whitelisted proxy server (for retrieving profile pictures and CVs):<br>',
+            );
+            $form['api']['oit_proxy_url'] = array(
+                '#type' => 'textfield',
+                '#title' => t('Hostname/URL of Proxy Server'),
+                '#default_value' => $config->get('oit_proxy_url'),
+            );
+            $form['api']['oit_proxy_url_label'] = array(
+                '#markup' => '<i>Hostname only, exclude "http"</i><br>',
+            );
+            $form['api']['oit_proxy_port'] = array(
+                '#type' => 'number',
+                '#title' => t('Port for Proxy URL'),
+                '#default_value' => $config->get('oit_proxy_port'),
+            );
+            $form['api']['oit_proxy_username'] = array(
+                '#type' => 'textfield',
+                '#title' => t('Username for Proxy Server'),
+                '#default_value' => $config->get('oit_proxy_username'),
+            );
+            $form['api']['oit_proxy_password'] = array(
+                '#type' => 'password',
+                '#title' => t('Password for Proxy Server'),
+                '#default_value' => $config->get('oit_proxy_password'),
+            );
+            $form['api']['oit_proxy_password_label'] = array(
+                '#markup' => '<i>If the password field is empty and you\'ve previously saved a password, leaving this empty will use the saved password.</i><br>',
+            );
+
         }
         else if ($current_mode == BYUFacultyDirectoryForm::ChildMode) {
             $form['api']['parent_url'] = array(
@@ -226,6 +256,21 @@ class BYUFacultyDirectoryForm extends ConfigFormBase {
             if ($fetch_all && strlen($form_state->getValue(array('api', 'oit_api_key'))) < 1){
                 $form_state->setErrorByName('api][oit_api_key', $this->t('Fetching from OIT requires an OIT API key.'));
             }
+            if ($fetch_all && strlen($form_state->getValue(array('api', 'oit_proxy_url'))) < 1){
+                $form_state->setErrorByName('api][oit_proxy_url', $this->t('Fetching from OIT requires a proxy URL.'));
+            }
+            $port = $form_state->getValue(array('api', 'oit_proxy_port'));
+            if ($fetch_all && (0 > $port || 65535 < $port)){
+                $form_state->setErrorByName('api][oit_proxy_port', $this->t('Fetching from OIT requires a proxy port.'));
+            }
+            if ($fetch_all && strlen($form_state->getValue(array('api', 'oit_proxy_username'))) < 1){
+                $form_state->setErrorByName('api][oit_proxy_username', $this->t('Fetching from OIT requires a proxy username'));
+            }
+            if ($fetch_all && strlen(\Drupal::config('byu_faculty_directory.config')->get('oit_proxy_password')) < 1) {
+                if (strlen($form_state->getValue(array('api', 'oit_proxy_password'))) < 1) {
+                    $form_state->setErrorByName('api][oit_proxy_password', $this->t('Fetching from OIT requires a proxy password.'));
+                }
+            }
             if (strlen($form_state->getValue(array('api', 'dept_api_key'))) < 1) {
                 $form_state->setErrorByName('api][dept_api_key', $this->t('Please enter a value in the Child REST API Key field.'));
             }
@@ -259,7 +304,6 @@ class BYUFacultyDirectoryForm extends ConfigFormBase {
             drupal_set_message(t('Module mode updated!'), 'status');
             return;
         }
-
 
         //Common to Parent and Child modes
 
@@ -307,11 +351,38 @@ class BYUFacultyDirectoryForm extends ConfigFormBase {
         $create = $form_state->getValue(array('content', 'create_content'));
         $old_oit_api_key = \Drupal::config('byu_faculty_directory.config')->get('oit_api_key');
         $new_oit_api_key = $form_state->getValue(array('api', 'oit_api_key'));
+        $old_oit_proxy_url = \Drupal::config('byu_faculty_directory.config')->get('oit_proxy_url');
+        $new_oit_proxy_url = $form_state->getValue(array('api', 'oit_proxy_url'));
+        $old_oit_proxy_port = \Drupal::config('byu_faculty_directory.config')->get('oit_proxy_port');
+        $new_oit_proxy_port = $form_state->getValue(array('api', 'oit_proxy_port'));
+        $old_oit_proxy_usr = \Drupal::config('byu_faculty_directory.config')->get('oit_proxy_username');
+        $new_oit_proxy_usr = $form_state->getValue(array('api', 'oit_proxy_username'));
+        $old_oit_proxy_pass = \Drupal::config('byu_faculty_directory.config')->get('oit_proxy_password');
+        $new_oit_proxy_pass = $form_state->getValue(array('api', 'oit_proxy_password'));
 
         if (strcmp($old_oit_api_key, $new_oit_api_key) !== 0) {
             $this->storeSetting('oit_api_key', $new_oit_api_key);
             drupal_set_message(t('OIT API key updated!'), 'status');
         }
+        if (strcmp($old_oit_proxy_url, $new_oit_proxy_url) !== 0) {
+            $this->storeSetting('oit_proxy_url', $new_oit_proxy_url);
+            drupal_set_message(t('OIT Proxy URL updated!'), 'status');
+        }
+        if ($old_oit_proxy_port !== $new_oit_proxy_port) {
+            $this->storeSetting('oit_proxy_port', $new_oit_proxy_port);
+            drupal_set_message(t('OIT Proxy Port updated!'), 'status');
+        }
+        if (strcmp($old_oit_proxy_usr, $new_oit_proxy_usr) !== 0) {
+            $this->storeSetting('oit_proxy_username', $new_oit_proxy_usr);
+            drupal_set_message(t('OIT Proxy Username updated!'), 'status');
+        }
+        if (!(strlen($old_oit_proxy_pass) > 1 && strlen($new_oit_proxy_pass) < 1 )){
+            if (strcmp($old_oit_proxy_pass, $new_oit_proxy_pass) !== 0) {
+                $this->storeSetting('oit_proxy_password', $new_oit_proxy_pass);
+                drupal_set_message(t('OIT Proxy Password updated!'), 'status');
+            }
+        }
+
         if ($fetch == 1) {
             try {
                 $this->getFacultyFromOIT();
@@ -375,8 +446,11 @@ class BYUFacultyDirectoryForm extends ConfigFormBase {
         $netid_attribute = 'username';
 
         //Get all netids
+        $gottem = False;
         foreach($data->Record as $record) {
+
             foreach($record->children('dmd', true)->IndexEntry as $indexentry){
+
                 $netids[] = (string)$record->attributes()->$netid_attribute;
 
                 //Filter by ChemE (for testing, reduces download/parsing time)
@@ -386,15 +460,20 @@ class BYUFacultyDirectoryForm extends ConfigFormBase {
                     break;
                 }
                 */
+
             }
         }
 
         foreach($netids as $netid){
             $netid_data = file_get_contents('https://ws.byu.edu/services/facultyProfile/faculty/'.$netid.'/profile/?applicationKey='.$api_key);
             $facultyProfile = simplexml_load_string($netid_data);
-            $this->createSingleFacultyMember($facultyProfile);
-        }
+            try {
+                $this->createSingleFacultyMember($facultyProfile);
+            }catch(\Exception $e){
+                throw new \Exception($e->getMessage());
+            }
 
+        }
 
         /*
          * For Testing - Save data into an XML file, load it with createContent()
@@ -423,14 +502,14 @@ class BYUFacultyDirectoryForm extends ConfigFormBase {
      * For Testing/Debugging
      *
     private function createContent(){
-        $filename = drupal_get_path('module','byu_faculty_directory').'/data/all_faculty_cache.xml';
-        $data = simplexml_load_file($filename);
+    $filename = drupal_get_path('module','byu_faculty_directory').'/data/all_faculty_cache.xml';
+    $data = simplexml_load_file($filename);
 
-        foreach($data->facultyProfile as $facultyProfile){
-            $this->createSingleFacultyMember($facultyProfile);
-        }
+    foreach($data->facultyProfile as $facultyProfile){
+    $this->createSingleFacultyMember($facultyProfile);
     }
-    */
+    }
+     */
 
 
     /**
@@ -438,14 +517,17 @@ class BYUFacultyDirectoryForm extends ConfigFormBase {
      * Used by parent mode
      */
     private function createSingleFacultyMember(\SimpleXMLElement &$facultyProfile) {
+        //Currently unused - preferred name, teaching interests
+        $prefname = $facultyProfile->Record->PCI->PFNAME;
+        $teaching_interests = $facultyProfile->Record->PCI->TEACHING_INTERESTS;
+
         set_time_limit(45);
-        //Name, Research/Teaching Interests, Bio, Website, Netid
+        //Name, Research Bio, Website, Netid
         $firstname = $facultyProfile->Record->PCI->FNAME;
         $lastname = $facultyProfile->Record->PCI->LNAME;
-        $prefname = $facultyProfile->Record->PCI->PFNAME;
         $name = $facultyProfile->Record->PCI->FNAME." ".$facultyProfile->Record->PCI->LNAME;
         $research_interests = $facultyProfile->Record->PCI->RESEARCH_INTERESTS;
-        $teaching_interests = $facultyProfile->Record->PCI->TEACHING_INTERESTS;
+
         $bio = $facultyProfile->Record->PCI->BIO;
         $website = $facultyProfile->Record->PCI->WEBSITE;
 
@@ -493,7 +575,7 @@ class BYUFacultyDirectoryForm extends ConfigFormBase {
             if ((string)$entry->DESC) {
                 $award_entry = $award_entry . ' - ' . $entry->DESC;
             }
-            $awards = $awards."$award_entry\n";
+            $awards = $awards."<li>$award_entry</li><br>";
         }
 
         //Degrees
@@ -505,11 +587,11 @@ class BYUFacultyDirectoryForm extends ConfigFormBase {
             $education_entry = $entry->DEGREE_NAME . ' in ' . $entry->MAJOR . ', ' . $entry->SCHOOL . ', ' . $entry->LOCATION . ' (' . $entry->YR_COMP . ")";
             //If there is a dissertation present
             if ((string)$entry->DISSTITLE) {
-                $education_entry = $education_entry . "\nDissertation: " . $entry->DISSTITLE;
+                $education_entry = $education_entry . "<br>Dissertation: " . $entry->DISSTITLE;
             }
             //If there is an area of study present
             if ((string)$entry->SUPPAREA) {
-                $education_entry = $education_entry . "\nArea of Study: " . $entry->SUPPAREA;
+                $education_entry = $education_entry . "<br>Area of Study: " . $entry->SUPPAREA;
             }
             $education = $education."<li>$education_entry</li><br>";
         }
@@ -556,7 +638,7 @@ class BYUFacultyDirectoryForm extends ConfigFormBase {
             }
             $organization_entry = $organization_entry . ' (' . $entry->SCOPE . ')';
             if ((string)$entry->DESC) {
-                $organization_entry = $organization_entry . "\n" . $entry->DESC;
+                $organization_entry = $organization_entry . "<br>" . $entry->DESC;
             }
             $organizations = $organizations."<li>$organization_entry</li><br>";
         }
@@ -714,6 +796,47 @@ class BYUFacultyDirectoryForm extends ConfigFormBase {
         $courses = $courses."</ul>";
 
 
+        //CV and Image
+        $vita_path = '';
+        $photo_path = '';
+        $photo_retrieved = False;
+        $cv_retrieved = False;
+        if ((string)$facultyProfile->Record->PCI->VITA_VISIBLE == 'true') {
+            $vita_path = (string)$facultyProfile->Record->PCI->UPLOAD_VITA;
+            if (strlen($vita_path) < 1){
+                $cv_retrieved = False;
+            }
+            else {
+                $filetype = pathinfo($vita_path)['extension'];
+                $vita_filename = 'public://' . $netid . '_vita.' . $filetype;
+                try {
+                    file_put_contents($vita_filename, $this->getFileThroughProxy($vita_path));
+                }catch (\Exception $e){
+                    $msg = 'One or more faculty members failed to download. Proxy error - check proxy username, password, hostname, and port. More information: '.$e->getMessage();
+                    throw new \Exception($msg);
+                }
+                $cv_retrieved = True;
+            }
+        }
+        if ((string)$facultyProfile->Record->PCI->PHOTO_VISIBLE == 'true') {
+            $photo_path = (string)$facultyProfile->Record->PCI->UPLOAD_PHOTO;
+            if (strlen($photo_path) < 1){
+                $photo_retrieved = False;
+            }
+            else {
+                $filetype = pathinfo($photo_path)['extension'];
+                $photo_filename = 'public://'.$netid.'_photo.'.$filetype;
+                try {
+                    file_put_contents($photo_filename, $this->getFileThroughProxy($photo_path));
+                }catch (\Exception $e){
+                    $msg = 'One or more faculty members failed to download. Proxy error - check proxy username, password, hostname, and port. More information: '.$e->getMessage();
+                    throw new \Exception($msg);
+                }
+                $photo_retrieved = True;
+            }
+        }
+
+
 
         //Missing:
         //Profile Image
@@ -800,6 +923,38 @@ class BYUFacultyDirectoryForm extends ConfigFormBase {
             if (!$node->field_department_override->value){
                 $node->field_department = $department;
             }
+            if (!$node->field_cv_override->value && $cv_retrieved){
+                $files = \Drupal::entityTypeManager()
+                    ->getStorage('file')
+                    ->loadByProperties(['uri' => $vita_filename]);
+                $file = reset($files);
+                if (!$file){
+                    $file = \Drupal\file\Entity\File::create([
+                        'uri' => $vita_filename,
+                    ]);
+                    $file->save();
+                }
+                $node->field_cv[] = [
+                    'target_id' => $file->id(),
+                ];
+            }
+            if (!$node->field_profile_image_override->value && $photo_retrieved){
+                $files = \Drupal::entityTypeManager()
+                    ->getStorage('file')
+                    ->loadByProperties(['uri' => $photo_filename]);
+                $file = reset($files);
+                if (!$file){
+                    $file = \Drupal\file\Entity\File::create([
+                        'uri' => $photo_filename,
+                    ]);
+                    $file->save();
+                }
+                $node->field_profile_image[] = [
+                    'target_id' => $file->id(),
+                    'alt' => $name,
+                    'title' => $name
+                ];
+            }
             $node->save();
         }
         else {
@@ -825,7 +980,29 @@ class BYUFacultyDirectoryForm extends ConfigFormBase {
             $create_array['field_uid'] = $netid;
             $create_array['field_department'] = $department;
 
-            //$create_array['field_profile_image'] =
+            if ($cv_retrieved){
+                $file = \Drupal\file\Entity\File::create([
+                    'uri' => $vita_filename,
+                ]);
+                $file->save();
+                $create_array['field_cv'] = [
+                    'target_id' => $file->id(),
+                ];
+
+            }
+            if ($photo_retrieved){
+                $file = \Drupal\file\Entity\File::create([
+                    'uri' => $photo_filename,
+                ]);
+                $file->save();
+                $create_array['field_profile_image'] = [
+                    'target_id' => $file->id(),
+                    'alt' => $name,
+                    'title' => $name
+                ];
+            }
+
+            //Future fields
             //$create_array['field_research_short'] =
             //$create_array['field_students'] =
             //$create_array['field_office_hours'] =
@@ -835,8 +1012,27 @@ class BYUFacultyDirectoryForm extends ConfigFormBase {
         }
     }
 
+    private function getFileThroughProxy($path){
+        $proxy_url = \Drupal::config('byu_faculty_directory.config')->get('oit_proxy_url');
+        $proxy_port = \Drupal::config('byu_faculty_directory.config')->get('oit_proxy_port');
+        $proxy_username = \Drupal::config('byu_faculty_directory.config')->get('oit_proxy_username');
+        $proxy_password = \Drupal::config('byu_faculty_directory.config')->get('oit_proxy_password');
+
+        $url = 'https://fp-vita.byu.edu/vita/'.str_replace(' ','%20', $path);
+        $client = \Drupal::httpClient(array( 'curl' => array( CURLOPT_SSL_VERIFYPEER => false ),'verify' => false));
+        try {
+            $response = $client->request('GET', $url, [
+                'verify' => false,
+                'proxy' => "http://$proxy_username:$proxy_password@$proxy_url:$proxy_port"
+            ]);
+        }catch(\Exception $e){
+            throw new \Exception($e->getMessage());
+        }
+        return $response->getBody()->getContents();
+    }
+
     /**
-     * Gets ALL faculty members from Parent Module API and stores them in a file
+     * Gets faculty members from Parent Module API and stores them in a file
      * Used by child mode
      * @throws \Exception upon failed connection to Parent API
      */
@@ -864,7 +1060,7 @@ class BYUFacultyDirectoryForm extends ConfigFormBase {
                 $result = $response->getBody()->getContents();
 
             } catch (\Exception $e) {
-                throw new \Exception($e->getMessage());
+                throw new \Exception('Could not connect to parent module - check API key, URL. more details: '.$e->getMessage());
             }
 
         }
@@ -884,9 +1080,32 @@ class BYUFacultyDirectoryForm extends ConfigFormBase {
         //Process each recieved faculty member
         foreach ($result['data'] as $entry) {
             //See if the faculty member already exists in the database
+            $uid = $entry['field_uid'][0]['value'];
             $uid_query = \Drupal::entityTypeManager()
                 ->getStorage('node')
-                ->loadByProperties(['field_uid' => $entry['field_uid'][0]['value']]);
+                ->loadByProperties(['field_uid' => $uid]);
+            $netid = $uid;
+
+            //Get URLs of image and CV
+            $result = json_decode(file_get_contents($parent_url.'byu-faculty-directory/faculty-files?applicationKey='
+                .$api_key.'&netid='.$netid));
+            //Download em
+            $cv_retrieved = False;
+            $photo_retrieved = False;
+            if (!$result->error) {
+                if ($result->data->vita){
+                    $vita_filetype = pathinfo($result->data->vita)['extension'];
+                    $vita_filename = 'public://' . $netid . '_vita.' . $vita_filetype;
+                    file_put_contents($vita_filename, file_get_contents($result->data->vita));
+                    $cv_retrieved = True;
+                }
+                if ($result->data->photo){
+                    $photo_filetype = pathinfo($result->data->photo)['extension'];
+                    $photo_filename = 'public://' . $netid . '_photo.' . $photo_filetype;
+                    file_put_contents($photo_filename, file_get_contents($result->data->photo));
+                    $photo_retrieved = True;
+                }
+            }
 
             if ($node = reset($uid_query)){
 
@@ -949,9 +1168,44 @@ class BYUFacultyDirectoryForm extends ConfigFormBase {
                 if (!$node->field_department_override->value){
                     $node->field_department = $entry['field_department'][0]['value'];
                 }
+                $name = $entry['field_first_name'][0]['value'].' '.$entry['field_last_name'][0]['value'];
+                if (!$node->field_cv_override->value && $cv_retrieved){
+                    $files = \Drupal::entityTypeManager()
+                        ->getStorage('file')
+                        ->loadByProperties(['uri' => $vita_filename]);
+                    $file = reset($files);
+                    if (!$file){
+                        $file = \Drupal\file\Entity\File::create([
+                            'uri' => $vita_filename,
+                        ]);
+                        $file->save();
+                    }
+                    $node->field_cv[] = [
+                        'target_id' => $file->id(),
+                    ];
+                }
+                if (!$node->field_profile_image_override->value && $photo_retrieved){
+                    $files = \Drupal::entityTypeManager()
+                        ->getStorage('file')
+                        ->loadByProperties(['uri' => $photo_filename]);
+                    $file = reset($files);
+                    if (!$file){
+                        $file = \Drupal\file\Entity\File::create([
+                            'uri' => $photo_filename,
+                        ]);
+                        $file->save();
+                    }
+                    $node->field_profile_image[] = [
+                        'target_id' => $file->id(),
+                        'alt' => $name,
+                        'title' => $name
+                    ];
+                }
+
                 $node->save();
             }
             else {
+                $name = $entry['field_first_name'][0]['value'].' '.$entry['field_last_name'][0]['value'];
                 $create_array = array();
                 $create_array['type'] = 'byu_faculty_member';
                 $create_array['langcode'] = 'en';
@@ -972,6 +1226,31 @@ class BYUFacultyDirectoryForm extends ConfigFormBase {
                 $create_array['title'] = $entry['field_first_name'][0]['value']." ".$entry['field_last_name'][0]['value'];
                 $create_array['field_uid'] = $entry['field_uid'][0]['value'];
                 $create_array['field_department'] = $entry['field_department'][0]['value'];
+
+
+                if ($cv_retrieved){
+                    $file = \Drupal\file\Entity\File::create([
+                        'uri' => $vita_filename,
+                    ]);
+                    $file->save();
+                    $create_array['field_cv'] = [
+                        'target_id' => $file->id(),
+                    ];
+
+                }
+                if ($photo_retrieved){
+                    $file = \Drupal\file\Entity\File::create([
+                        'uri' => $photo_filename,
+                    ]);
+                    $file->save();
+                    $create_array['field_profile_image'] = [
+                        'target_id' => $file->id(),
+                        'alt' => $name,
+                        'title' => $name
+                    ];
+                }
+
+
                 $node = \Drupal\node\Entity\Node::create($create_array);
                 $node->save();
             }

@@ -1,11 +1,12 @@
 <!--
 ~
+~ Profile image is preprocessed in byu_faculty_directory.module
+~
 ~   Fields that need to be added to content type
 ~       Status (hidden field, used for filtering)
 ~       Areas of Expertise
 ~       Background Intro
 ~       Professional Organizations
-~       CV (PDF link)
 ~       Alternate Phone
 ~
 ~   Fields not added to profile
@@ -60,6 +61,10 @@
 
     {% if node.field_education.value is not empty %}
         <span slot="faculty-education">{{ node.field_education.value | raw }}</span>
+    {% endif %}
+
+    {% if node.field_cv.value is not empty %}
+        <span slot="faculty-cv">{{ file_url(node.field_cv.entity.uri.value) }}</span>
     {% endif %}
 
 </byu-faculty-profile>
