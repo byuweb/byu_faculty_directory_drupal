@@ -8,7 +8,7 @@ id: node.byu_faculty_member.field_byu_f_d_last_name_or
 field_name: field_byu_f_d_last_name_or
 entity_type: node
 bundle: byu_faculty_member
-label: 'Last Name or'
+label: 'Last Name Override'
 description: 'If this is turned on, data stored in this field will not be overwritten by data from OIT.'
 required: false
 translatable: false

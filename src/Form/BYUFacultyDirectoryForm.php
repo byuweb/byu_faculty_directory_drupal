@@ -862,8 +862,8 @@ class BYUFacultyDirectoryForm extends ConfigFormBase {
 
         //Found in database!
         if ($node = reset($uid_query)) {
-            //Check the manual or field for each field that OIT manages
-            //If or field is false, or. If true, do nothing.
+            //Check the manual Override field for each field that OIT manages
+            //If Override field is false, Override. If true, do nothing.
 
             if (!$node->field_byu_f_d_awards_or->value){
                 $node->field_byu_f_d_awards = $awards;
