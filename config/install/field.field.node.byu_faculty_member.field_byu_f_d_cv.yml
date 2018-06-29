@@ -23,4 +23,4 @@ settings:
   description_field: false
   handler: 'default:file'
   handler_settings: {  }
-field_byu_f_d_type: file
+field_type: file

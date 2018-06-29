@@ -33,4 +33,4 @@ settings:
     height: null
   handler: 'default:file'
   handler_settings: {  }
-field_byu_f_d_type: image
+field_type: image

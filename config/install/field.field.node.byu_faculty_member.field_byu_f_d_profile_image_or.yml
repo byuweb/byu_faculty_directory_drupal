@@ -19,4 +19,4 @@ default_value_callback: ''
 settings:
   on_label: 'On'
   off_label: 'Off'
-field_byu_f_d_type: boolean
+field_type: boolean

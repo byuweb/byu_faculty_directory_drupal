@@ -1,0 +1,45 @@
+  #!/bin/bash
+
+  drush config-delete field.storage.node.field_byu_f_d_awards_or &&
+  drush config-delete field.storage.node.field_byu_f_d_biography &&
+  drush config-delete field.storage.node.field_byu_f_d_biography_or &&
+  drush config-delete field.storage.node.field_byu_f_d_committees &&
+  drush config-delete field.storage.node.field_byu_f_d_committees_or &&
+  drush config-delete field.storage.node.field_byu_f_d_courses &&
+  drush config-delete field.storage.node.field_byu_f_d_courses_or &&
+  drush config-delete field.storage.node.field_byu_f_d_custom_content &&
+  drush config-delete field.storage.node.field_byu_f_d_custom_title &&
+  drush config-delete field.storage.node.field_byu_f_d_cv &&
+  drush config-delete field.storage.node.field_byu_f_d_cv_or &&
+  drush config-delete field.storage.node.field_byu_f_d_department &&
+  drush config-delete field.storage.node.field_byu_f_d_department_or &&
+  drush config-delete field.storage.node.field_byu_f_d_education &&
+  drush config-delete field.storage.node.field_byu_f_d_education_or &&
+  drush config-delete field.storage.node.field_byu_f_d_email &&
+  drush config-delete field.storage.node.field_byu_f_d_email_or &&
+  drush config-delete field.storage.node.field_byu_f_d_first_name &&
+  drush config-delete field.storage.node.field_byu_f_d_first_name_or &&
+  drush config-delete field.storage.node.field_byu_f_d_last_name &&
+  drush config-delete field.storage.node.field_byu_f_d_last_name_or &&
+  drush config-delete field.storage.node.field_byu_f_d_links &&
+  drush config-delete field.storage.node.field_byu_f_d_links_or &&
+  drush config-delete field.storage.node.field_byu_f_d_office_hours &&
+  drush config-delete field.storage.node.field_byu_f_d_office_hours_or &&
+  drush config-delete field.storage.node.field_byu_f_d_office_location &&
+  drush config-delete field.storage.node.field_byu_f_d_office_location_or &&
+  drush config-delete field.storage.node.field_byu_f_d_phone_number &&
+  drush config-delete field.storage.node.field_byu_f_d_phone_number_or &&
+  drush config-delete field.storage.node.field_byu_f_d_profile_image &&
+  drush config-delete field.storage.node.field_byu_f_d_profile_image_or &&
+  drush config-delete field.storage.node.field_byu_f_d_publications &&
+  drush config-delete field.storage.node.field_byu_f_d_publications_or &&
+  drush config-delete field.storage.node.field_byu_f_d_research_long &&
+  drush config-delete field.storage.node.field_byu_f_d_research_long_or &&
+  drush config-delete field.storage.node.field_byu_f_d_research_short &&
+  drush config-delete field.storage.node.field_byu_f_d_research_short_or &&
+  drush config-delete field.storage.node.field_byu_f_d_students &&
+  drush config-delete field.storage.node.field_byu_f_d_students_or &&
+  drush config-delete field.storage.node.field_byu_f_d_title &&
+  drush config-delete field.storage.node.field_byu_f_d_title_or &&
+  drush config-delete field.storage.node.field_byu_f_d_uid &&
+  drush config-delete field.storage.node.field_byu_f_d_uid_or
