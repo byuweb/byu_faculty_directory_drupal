@@ -33,7 +33,7 @@ label: 'BYU Faculty Directory Listing'
 module: views
 description: 'Faculty Directory Listing View for the BYU Faculty Member Content Type'
 tag: ''
-base_table: node_field_byu_f_d_data
+base_table: node_field_data
 base_field: nid
 core: 8.x
 display:
@@ -86,7 +86,7 @@ display:
       row:
         type: fields
         options:
-          default_field_byu_f_d_elements: false
+          default_field_elements: false
           inline: {  }
           separator: ''
           hide_empty: false
@@ -151,7 +151,7 @@ display:
           delta_first_last: false
           multi_type: separator
           separator: ', '
-          field_byu_f_d_api_classes: false
+          field_api_classes: false
           plugin_id: field
         field_byu_f_d_email:
           id: field_byu_f_d_email
@@ -213,7 +213,7 @@ display:
           delta_first_last: false
           multi_type: separator
           separator: ', '
-          field_byu_f_d_api_classes: false
+          field_api_classes: false
           plugin_id: field
         field_byu_f_d_first_name:
           id: field_byu_f_d_first_name
@@ -276,7 +276,7 @@ display:
           delta_first_last: false
           multi_type: separator
           separator: ', '
-          field_byu_f_d_api_classes: false
+          field_api_classes: false
           plugin_id: field
         field_byu_f_d_last_name:
           id: field_byu_f_d_last_name
@@ -339,7 +339,7 @@ display:
           delta_first_last: false
           multi_type: separator
           separator: ', '
-          field_byu_f_d_api_classes: false
+          field_api_classes: false
           plugin_id: field
         field_byu_f_d_office_hours:
           id: field_byu_f_d_office_hours
@@ -401,7 +401,7 @@ display:
           delta_first_last: false
           multi_type: separator
           separator: ', '
-          field_byu_f_d_api_classes: false
+          field_api_classes: false
           plugin_id: field
         field_byu_f_d_office_location:
           id: field_byu_f_d_office_location
@@ -464,7 +464,7 @@ display:
           delta_first_last: false
           multi_type: separator
           separator: ', '
-          field_byu_f_d_api_classes: false
+          field_api_classes: false
           plugin_id: field
         field_byu_f_d_phone_number:
           id: field_byu_f_d_phone_number
@@ -527,7 +527,7 @@ display:
           delta_first_last: false
           multi_type: separator
           separator: ', '
-          field_byu_f_d_api_classes: false
+          field_api_classes: false
           plugin_id: field
         field_byu_f_d_profile_image:
           id: field_byu_f_d_profile_image
@@ -591,7 +591,7 @@ display:
           delta_first_last: false
           multi_type: separator
           separator: ', '
-          field_byu_f_d_api_classes: false
+          field_api_classes: false
           plugin_id: field
         field_byu_f_d_title:
           id: field_byu_f_d_title
@@ -654,7 +654,7 @@ display:
           delta_first_last: false
           multi_type: separator
           separator: ', '
-          field_byu_f_d_api_classes: false
+          field_api_classes: false
           plugin_id: field
         field_byu_f_d_awards:
           id: field_byu_f_d_awards
@@ -716,7 +716,7 @@ display:
           delta_first_last: false
           multi_type: separator
           separator: ', '
-          field_byu_f_d_api_classes: false
+          field_api_classes: false
           plugin_id: field
         field_byu_f_d_committees:
           id: field_byu_f_d_committees
@@ -778,7 +778,7 @@ display:
           delta_first_last: false
           multi_type: separator
           separator: ', '
-          field_byu_f_d_api_classes: false
+          field_api_classes: false
           plugin_id: field
         field_byu_f_d_courses:
           id: field_byu_f_d_courses
@@ -840,7 +840,7 @@ display:
           delta_first_last: false
           multi_type: separator
           separator: ', '
-          field_byu_f_d_api_classes: false
+          field_api_classes: false
           plugin_id: field
         field_byu_f_d_custom_content:
           id: field_byu_f_d_custom_content
@@ -902,7 +902,7 @@ display:
           delta_first_last: false
           multi_type: separator
           separator: ', '
-          field_byu_f_d_api_classes: false
+          field_api_classes: false
           plugin_id: field
         field_byu_f_d_custom_title:
           id: field_byu_f_d_custom_title
@@ -965,7 +965,7 @@ display:
           delta_first_last: false
           multi_type: separator
           separator: ', '
-          field_byu_f_d_api_classes: false
+          field_api_classes: false
           plugin_id: field
         field_byu_f_d_links:
           id: field_byu_f_d_links
@@ -1027,7 +1027,7 @@ display:
           delta_first_last: false
           multi_type: separator
           separator: ', '
-          field_byu_f_d_api_classes: false
+          field_api_classes: false
           plugin_id: field
         field_byu_f_d_publications:
           id: field_byu_f_d_publications
@@ -1089,7 +1089,7 @@ display:
           delta_first_last: false
           multi_type: separator
           separator: ', '
-          field_byu_f_d_api_classes: false
+          field_api_classes: false
           plugin_id: field
         field_byu_f_d_research_long:
           id: field_byu_f_d_research_long
@@ -1151,7 +1151,7 @@ display:
           delta_first_last: false
           multi_type: separator
           separator: ', '
-          field_byu_f_d_api_classes: false
+          field_api_classes: false
           plugin_id: field
         field_byu_f_d_students:
           id: field_byu_f_d_students
@@ -1213,7 +1213,7 @@ display:
           delta_first_last: false
           multi_type: separator
           separator: ', '
-          field_byu_f_d_api_classes: false
+          field_api_classes: false
           plugin_id: field
         title:
           id: title
@@ -1276,7 +1276,7 @@ display:
           delta_first_last: false
           multi_type: separator
           separator: ', '
-          field_byu_f_d_api_classes: false
+          field_api_classes: false
           entity_type: node
           entity_field: title
           plugin_id: field
@@ -1417,7 +1417,7 @@ display:
           delta_first_last: false
           multi_type: separator
           separator: ', '
-          field_byu_f_d_api_classes: false
+          field_api_classes: false
           plugin_id: field
         field_byu_f_d_email:
           id: field_byu_f_d_email
@@ -1479,7 +1479,7 @@ display:
           delta_first_last: false
           multi_type: separator
           separator: ', '
-          field_byu_f_d_api_classes: false
+          field_api_classes: false
           plugin_id: field
         field_byu_f_d_first_name:
           id: field_byu_f_d_first_name
@@ -1542,7 +1542,7 @@ display:
           delta_first_last: false
           multi_type: separator
           separator: ', '
-          field_byu_f_d_api_classes: false
+          field_api_classes: false
           plugin_id: field
         field_byu_f_d_last_name:
           id: field_byu_f_d_last_name
@@ -1605,7 +1605,7 @@ display:
           delta_first_last: false
           multi_type: separator
           separator: ', '
-          field_byu_f_d_api_classes: false
+          field_api_classes: false
           plugin_id: field
         field_byu_f_d_office_hours:
           id: field_byu_f_d_office_hours
@@ -1667,7 +1667,7 @@ display:
           delta_first_last: false
           multi_type: separator
           separator: ', '
-          field_byu_f_d_api_classes: false
+          field_api_classes: false
           plugin_id: field
         field_byu_f_d_office_location:
           id: field_byu_f_d_office_location
@@ -1730,7 +1730,7 @@ display:
           delta_first_last: false
           multi_type: separator
           separator: ', '
-          field_byu_f_d_api_classes: false
+          field_api_classes: false
           plugin_id: field
         field_byu_f_d_phone_number:
           id: field_byu_f_d_phone_number
@@ -1793,7 +1793,7 @@ display:
           delta_first_last: false
           multi_type: separator
           separator: ', '
-          field_byu_f_d_api_classes: false
+          field_api_classes: false
           plugin_id: field
         field_byu_f_d_profile_image:
           id: field_byu_f_d_profile_image
@@ -1857,7 +1857,7 @@ display:
           delta_first_last: false
           multi_type: separator
           separator: ', '
-          field_byu_f_d_api_classes: false
+          field_api_classes: false
           plugin_id: field
         field_byu_f_d_title:
           id: field_byu_f_d_title
@@ -1920,7 +1920,7 @@ display:
           delta_first_last: false
           multi_type: separator
           separator: ', '
-          field_byu_f_d_api_classes: false
+          field_api_classes: false
           plugin_id: field
         field_byu_f_d_awards:
           id: field_byu_f_d_awards
@@ -1982,7 +1982,7 @@ display:
           delta_first_last: false
           multi_type: separator
           separator: ', '
-          field_byu_f_d_api_classes: false
+          field_api_classes: false
           plugin_id: field
         field_byu_f_d_committees:
           id: field_byu_f_d_committees
@@ -2044,7 +2044,7 @@ display:
           delta_first_last: false
           multi_type: separator
           separator: ', '
-          field_byu_f_d_api_classes: false
+          field_api_classes: false
           plugin_id: field
         field_byu_f_d_courses:
           id: field_byu_f_d_courses
@@ -2106,7 +2106,7 @@ display:
           delta_first_last: false
           multi_type: separator
           separator: ', '
-          field_byu_f_d_api_classes: false
+          field_api_classes: false
           plugin_id: field
         field_byu_f_d_custom_content:
           id: field_byu_f_d_custom_content
@@ -2168,7 +2168,7 @@ display:
           delta_first_last: false
           multi_type: separator
           separator: ', '
-          field_byu_f_d_api_classes: false
+          field_api_classes: false
           plugin_id: field
         field_byu_f_d_custom_title:
           id: field_byu_f_d_custom_title
@@ -2231,7 +2231,7 @@ display:
           delta_first_last: false
           multi_type: separator
           separator: ', '
-          field_byu_f_d_api_classes: false
+          field_api_classes: false
           plugin_id: field
         field_byu_f_d_links:
           id: field_byu_f_d_links
@@ -2293,7 +2293,7 @@ display:
           delta_first_last: false
           multi_type: separator
           separator: ', '
-          field_byu_f_d_api_classes: false
+          field_api_classes: false
           plugin_id: field
         field_byu_f_d_publications:
           id: field_byu_f_d_publications
@@ -2355,7 +2355,7 @@ display:
           delta_first_last: false
           multi_type: separator
           separator: ', '
-          field_byu_f_d_api_classes: false
+          field_api_classes: false
           plugin_id: field
         field_byu_f_d_research_long:
           id: field_byu_f_d_research_long
@@ -2417,7 +2417,7 @@ display:
           delta_first_last: false
           multi_type: separator
           separator: ', '
-          field_byu_f_d_api_classes: false
+          field_api_classes: false
           plugin_id: field
         field_byu_f_d_research_short:
           id: field_byu_f_d_research_short
@@ -2480,7 +2480,7 @@ display:
           delta_first_last: false
           multi_type: separator
           separator: ', '
-          field_byu_f_d_api_classes: false
+          field_api_classes: false
           plugin_id: field
         field_byu_f_d_students:
           id: field_byu_f_d_students
@@ -2542,7 +2542,7 @@ display:
           delta_first_last: false
           multi_type: separator
           separator: ', '
-          field_byu_f_d_api_classes: false
+          field_api_classes: false
           plugin_id: field
         path:
           id: path
@@ -2658,7 +2658,7 @@ display:
           delta_first_last: false
           multi_type: separator
           separator: ', '
-          field_byu_f_d_api_classes: false
+          field_api_classes: false
           entity_type: node
           entity_field: title
           plugin_id: field
