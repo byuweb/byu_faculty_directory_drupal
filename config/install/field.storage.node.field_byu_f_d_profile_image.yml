@@ -5,6 +5,9 @@ dependencies:
     - file
     - image
     - node
+  enforced:
+    module:
+      - byu_faculty_directory
 id: node.field_byu_f_d_profile_image
 field_name: field_byu_f_d_profile_image
 entity_type: node

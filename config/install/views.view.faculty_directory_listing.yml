@@ -28,6 +28,9 @@ dependencies:
     - node
     - text
     - user
+  enforced:
+    module:
+      - byu_faculty_directory
 id: faculty_directory_listing
 label: 'BYU Faculty Directory Listing'
 module: views

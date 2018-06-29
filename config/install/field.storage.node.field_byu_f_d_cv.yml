@@ -4,6 +4,9 @@ dependencies:
   module:
     - file
     - node
+  enforced:
+    module:
+      - byu_faculty_directory
 id: node.field_byu_f_d_cv
 field_name: field_byu_f_d_cv
 entity_type: node

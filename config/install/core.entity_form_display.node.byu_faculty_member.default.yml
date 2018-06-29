@@ -55,6 +55,9 @@ dependencies:
     - layout_discovery
     - path
     - text
+  enforced:
+    module:
+      - byu_faculty_directory
 third_party_settings:
   field_layout:
     id: layout_onecol

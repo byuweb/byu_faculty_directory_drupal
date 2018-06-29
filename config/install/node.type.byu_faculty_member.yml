@@ -3,6 +3,9 @@ status: true
 dependencies:
   module:
     - menu_ui
+  enforced:
+    module:
+      - byu_faculty_directory
 third_party_settings:
   menu_ui:
     available_menus: {  }

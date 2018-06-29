@@ -3,6 +3,9 @@ status: true
 dependencies:
   module:
     - node
+  enforced:
+    module:
+      - byu_faculty_directory
 id: node.field_byu_f_d_office_hours
 field_name: field_byu_f_d_office_hours
 entity_type: node
