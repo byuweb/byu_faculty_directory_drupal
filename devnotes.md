@@ -1,10 +1,7 @@
 # Developer Notes
 
 * It appears that if you try to install the module and there are existing fields that share the same name as fields inside the module, the installation fails/throws a fit. Not sure how to resolve this issue - maybe make unique fields like field_byu_f_d_profile_image and field_byu_f_d__name? There's got to be some way to overwrite it or something. Or share the existing fields.
-  * The module has been re-written to have all types of content use field_byu_f_d_*. This is best practice, and shouls stop the module from conflicting with previously installed modules.
-
-* To reinstall, you have to uninstall, delete the content type, and then reinstall. I'm not sure if there's some sort of script that runs when you uninstall that would automatically remove the content type/fields/etc. but this might be something to look into.
-  * This has been updated. It requires further testing, but the module should uninstall itself, all content types, and the view.
+  * The module has been re-written to have all types of content use field_byu_f_d_*. This is best practice, and should stop the module from conflicting with previously installed modules.
 
 * You might want to double check the formatting of the fields:
   * This is found in BYUFacultyDirectoryForm::createSingleFacultyMember()
