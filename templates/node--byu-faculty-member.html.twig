@@ -1,74 +1,3 @@
-<<<<<<< HEAD
-<!--
-~
-~ Profile image is preprocessed in byu_faculty_directory.module
-~
-~   Fields that need to be added to content type
-~       Status (hidden field, used for filtering)
-~       Areas of Expertise
-~       Background Intro
-~       Professional Organizations
-~       Alternate Phone
-~
-~   Fields not added to profile
-~       Short Research
-~       Short Bio
--->
-
-{{ attach_library('byu_faculty_directory/component-1.x.x') }}
-
-<byu-faculty-profile background-image="{{ profile_background_image }}" faculty-image="{{ file_url(node.field_profile_image.entity.uri.value) }}">
-    <div slot="faculty-name">{{ node.field_first_name.value ~ " " ~ node.field_last_name.value }}</div>
-    <span slot="faculty-title">{{ node.field_title.value }}</span>
-    <span slot="faculty-office">{{ node.field_office_location.value }}</span>
-    <span slot="faculty-phone">{{ node.field_phone_number.value }}</span>
-    <span slot="faculty-email">{{ node.field_email.value }}</span>
-
-    {% if node.field_biography.value is not empty %}
-    <span slot="faculty-biography">{{ node.field_biography.value | raw }}</span>
-    {% endif %}
-
-    {% if node.field_research_long.value is not empty %}
-    <span slot="faculty-research">{{ node.field_research_long.value | raw }}</span>
-    {% endif %}
-
-    {% if node.field_publications.value is not empty %}
-    <span slot="faculty-papers">{{ node.field_publications.value | raw }}</span>
-    {% endif %}
-
-    {% if node.field_courses.value is not empty %}
-    <span slot="faculty-courses">{{ node.field_courses.value | raw }}</span>
-    {% endif %}
-
-    {% if node.field_students.value is not empty %}
-    <span slot="faculty-students">{{ node.field_students.value | raw }}</span>
-    {% endif %}
-
-    {% if node.field_office_hours.value is not empty %}
-    <span slot="faculty-office-hours">{{ node.field_office_hours.value | raw }}</span>
-    {% endif %}
-
-    {% if node.field_links.value is not empty %}
-    <span slot="faculty-links">{{ node.field_links.value | raw }}</span>
-    {% endif %}
-
-    {% if node.field_awards.value is not empty %}
-    <span slot="faculty-awards">{{ node.field_awards.value | raw }}</span>
-    {% endif %}
-
-    {% if node.field_committees.value is not empty %}
-    <span slot="faculty-committees">{{ node.field_committees.value | raw }}</span>
-    {% endif %}
-
-    {% if node.field_education.value is not empty %}
-        <span slot="faculty-education">{{ node.field_education.value | raw }}</span>
-    {% endif %}
-
-    {% if node.field_cv.value is not empty %}
-        <span slot="faculty-cv">{{ file_url(node.field_cv.entity.uri.value) }}</span>
-    {% endif %}
-
-=======
 <!--
 ~
 ~ Profile image is preprocessed in byu_faculty_directory.module
@@ -138,5 +67,4 @@
         <span slot="faculty-cv">{{ file_url(node.field_byu_f_d_cv.entity.uri.value) }}</span>
     {% endif %}
 
->>>>>>> field_updates
 </byu-faculty-profile>
