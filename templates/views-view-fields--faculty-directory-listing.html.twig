@@ -2,6 +2,7 @@
 {{ attach_library('byu_faculty_directory/component-1.x.x') }}
 
 {# Strip HTML tags from variables #}
+<<<<<<< HEAD
 {% set first_name_strip = (fields['field_first_name'].content | striptags) %}
 {% set last_name_strip = (fields['field_last_name'].content | striptags) %}
 {% set title_strip = (fields['field_title'].content | striptags) %}
@@ -14,6 +15,20 @@
 
 {# Parse the image src from the image formatted output #}
 {% set src1 = fields['field_profile_image'].content|split('src="') %}
+=======
+{% set first_name_strip = (fields['field_byu_f_d_first_name'].content | striptags) %}
+{% set last_name_strip = (fields['field_byu_f_d_last_name'].content | striptags) %}
+{% set title_strip = (fields['field_byu_f_d_title'].content | striptags) %}
+{% set office_location_strip = (fields['field_byu_f_d_office_location'].content | striptags) %}
+{% set phone_number_strip = (fields['field_byu_f_d_phone_number'].content | striptags) %}
+{% set email_strip = (fields['field_byu_f_d_email'].content | striptags) %}
+{% set office_hours_strip = (fields['field_byu_f_d_office_hours'].content | striptags) %}
+{% set research_short_strip = (fields['field_byu_f_d_research_short'].content | striptags) %}
+{% set biography_strip = (fields['field_byu_f_d_biography'].content | striptags) %}
+
+{# Parse the image src from the image formatted output #}
+{% set src1 = fields['field_byu_f_d_profile_image'].content|split('src="') %}
+>>>>>>> field_updates
 {% set src2 = src1[1]|split('"') %}
 {% set profile_img_src = src2[0] %}
 
