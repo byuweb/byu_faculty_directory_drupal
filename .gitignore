@@ -1,0 +1,3 @@
+# exculding my bash scripts from git
+rename.sh
+delete_config.sh
