@@ -24,6 +24,9 @@ namespace Drupal\byu_faculty_directory\Form;
 use Drupal\Core\Form\ConfigFormBase;
 use Drupal\Core\Form\FormStateInterface;
 use function MongoDB\BSON\toJSON;
+/*use GuzzleHttp\Pool;
+use GuzzleHttp\Client;
+use GuzzleHttp\Psr7\Request;*/
 
 class BYUFacultyDirectoryForm extends ConfigFormBase {
 
@@ -435,10 +438,10 @@ class BYUFacultyDirectoryForm extends ConfigFormBase {
         try {
             $result = file_get_contents("https://ws.byu.edu/services/facultyProfile/faculty?applicationKey=".$api_key);
             if ($result === false) {
-                throw new \Exception('getFacultyFromParent(): 500 Response Recieved - Invalid Application Key. No changes made to cached data');
+                throw new \Exception('getFacultyFromOIT(): 500 Response Recieved - Invalid Application Key. No changes made to cached data');
             }
         } catch (\Exception $e) {
-            throw new \Exception('getFacultyFromParent(): Destination Unreachable - No changes made to cached data. Check application key and status of ws.byu.edu.');
+            throw new \Exception('getFacultyFromOIT(): Destination Unreachable - No changes made to cached data. Check application key and status of ws.byu.edu.');
         }
 
         $data = new \SimpleXMLElement($result);
@@ -473,7 +476,29 @@ class BYUFacultyDirectoryForm extends ConfigFormBase {
                 throw new \Exception($e->getMessage());
             }
 
-        }
+        } 
+
+        /*$client = new Client(['verify' => false]);
+        $requests = function ($items, $key) {
+            foreach ($items as $item) {
+                $uri = 'https://ws.byu.edu/services/facultyProfile/faculty/' . $item . '/profile/?applicationKey=' . $key;
+                yield new Request('GET', $uri);
+            }
+        };
+        $pool = new Pool($client, $requests($netids, $api_key), [
+            'concurrency' => 5,
+            'fulfilled' => function ($response, $index) {
+                $profile = simplexml_load_string($response->getBody());
+                try {
+                    $this->createSingleFacultyMember($profile);
+                } catch (\Exception $e) {
+                    throw new \Exception($e->getMessage());
+                }
+            },
+            'rejected' => function ($reason, $index) {
+                throw new \Exception($reason);
+            },
+        ]); */
 
         /*
          * For Testing - Save data into an XML file, load it with createContent()

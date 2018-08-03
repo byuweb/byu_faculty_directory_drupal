@@ -9,7 +9,7 @@
 {% set phone_number_strip = (fields['field_byu_f_d_phone_number'].content | striptags) %}
 {% set email_strip = (fields['field_byu_f_d_email'].content | striptags) %}
 {% set office_hours_strip = (fields['field_byu_f_d_office_hours'].content | striptags) %}
-{% set research_short_strip = (fields['field_byu_f_d_research_short'].content | striptags) %}
+{% set research_long_strip = (fields['field_byu_f_d_research_long'].content | striptags) %}
 {% set biography_strip = (fields['field_byu_f_d_biography'].content | striptags) %}
 
 {# Parse the image src from the image formatted output #}
@@ -28,6 +28,6 @@
     <span slot="listing-phone">{{ phone_number_strip }}</span>
     <span slot="listing-email">{{ email_strip }}</span>
     <span slot="listing-office-hours">{{ office_hours_strip }}</span>
-    <div slot="listing-research">{{ research_short_strip }}</div>
+    <div slot="listing-research">{{ research_long_strip }}</div>
     <div slot="listing-biography">{{ biography_strip }}</div>
 </byu-faculty-listing>
