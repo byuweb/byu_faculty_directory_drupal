@@ -543,12 +543,12 @@ class BYUFacultyDirectoryForm extends ConfigFormBase {
      */
     private function createSingleFacultyMember(\SimpleXMLElement &$facultyProfile) {
         //Currently unused - preferred name, teaching interests
-        $prefname = $facultyProfile->Record->PCI->PFNAME;
+        $firstname = $facultyProfile->Record->PCI->PFNAME;
         $teaching_interests = $facultyProfile->Record->PCI->TEACHING_INTERESTS;
 
         set_time_limit(45);
         //Name, Research Bio, Website, Netid
-        $firstname = $facultyProfile->Record->PCI->FNAME;
+        //$firstname = $facultyProfile->Record->PCI->FNAME;
         $lastname = $facultyProfile->Record->PCI->LNAME;
         $name = $facultyProfile->Record->PCI->FNAME." ".$facultyProfile->Record->PCI->LNAME;
         $research_interests = $facultyProfile->Record->PCI->RESEARCH_INTERESTS;
