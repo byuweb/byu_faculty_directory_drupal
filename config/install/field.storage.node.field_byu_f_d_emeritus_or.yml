@@ -6,8 +6,8 @@ dependencies:
   enforced:
     module:
       - byu_faculty_directory
-id: node.field_byu_f_d_emeritus_or
-field_name: field_byu_f_d_emeritus_or
+id: node.field_byu_f_d_active_or
+field_name: field_byu_f_d_active_or
 entity_type: node
 type: boolean
 settings: {  }

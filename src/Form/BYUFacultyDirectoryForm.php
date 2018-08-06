@@ -571,10 +571,10 @@ class BYUFacultyDirectoryForm extends ConfigFormBase {
 
         //Emeritus Status
         $status = $facultyProfile->Record->PCI->EMP_STATUS;
-        if (strcmp($status, "Retired") == 0) {
-            $emeritus = TRUE;
+        if (strcmp($status, "Active") == 0) {
+            $active = TRUE;
         } else {
-            $emeritus = FALSE;
+            $active = FALSE;
         }
 
         //Rank, Adjunct Status
@@ -910,8 +910,8 @@ class BYUFacultyDirectoryForm extends ConfigFormBase {
                 $node->field_byu_f_d_email = $email;
             }
 
-            if (!$node->field_byu_f_d_emeritus_or->value) {
-                $node->field_byu_f_d_emeritus = $emeritus;
+            if (!$node->field_byu_f_d_active_or->value) {
+                $node->field_byu_f_d_active = $active;
             }
 
 
@@ -996,7 +996,7 @@ class BYUFacultyDirectoryForm extends ConfigFormBase {
             $create_array['field_byu_f_d_committees'] = $committees;
             $create_array['field_byu_f_d_courses'] = $courses;
             $create_array['field_byu_f_d_email'] = $email;
-            $create_array['field_byu_f_d_emeritus'] = $emeritus;
+            $create_array['field_byu_f_d_active'] = $active;
             $create_array['field_byu_f_d_first_name'] = $firstname;
             $create_array['field_byu_f_d_last_name'] = $lastname;
             $create_array['field_byu_f_d_links'] = $website;
@@ -1160,8 +1160,8 @@ class BYUFacultyDirectoryForm extends ConfigFormBase {
                     $node->field_byu_f_d_email = $entry['field_byu_f_d_email'][0]['value'];
                 }
 
-                if (!$node->field_byu_f_d_emeritus_or->value) {
-                    $node->field_byu_f_d_emeritus = $entry['field_byu_f_d_emeritus'][0]['value'];
+                if (!$node->field_byu_f_d_active_or->value) {
+                    $node->field_byu_f_d_active = $entry['field_byu_f_d_active'][0]['value'];
                 }
 
                 if (!$node->field_byu_f_d_first_name_or->value){
@@ -1249,7 +1249,7 @@ class BYUFacultyDirectoryForm extends ConfigFormBase {
                 $create_array['field_byu_f_d_committees'] = $entry['field_byu_f_d_committees'][0]['value'];
                 $create_array['field_byu_f_d_courses'] = $entry['field_byu_f_d_courses'][0]['value'];
                 $create_array['field_byu_f_d_email'] = $entry['field_byu_f_d_email'][0]['value'];
-                $create_array['field_byu_f_d_emeritus'] = $entry['field_byu_f_d_emeritus'][0]['value'];
+                $create_array['field_byu_f_d_active'] = $entry['field_byu_f_d_active'][0]['value'];
                 $create_array['field_byu_f_d_first_name'] = $entry['field_byu_f_d_first_name'][0]['value'];
                 $create_array['field_byu_f_d_last_name'] = $entry['field_byu_f_d_last_name'][0]['value'];
                 $create_array['field_byu_f_d_links'] = $entry['field_byu_f_d_links'][0]['value'];
