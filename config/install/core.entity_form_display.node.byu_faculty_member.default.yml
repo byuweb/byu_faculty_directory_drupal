@@ -20,6 +20,8 @@ dependencies:
     - field.field.node.byu_faculty_member.field_byu_f_d_education_or
     - field.field.node.byu_faculty_member.field_byu_f_d_email
     - field.field.node.byu_faculty_member.field_byu_f_d_email_or
+    - field.field.node.byu_faculty_member.field_byu_f_d_emeritus
+    - field.field.node.byu_faculty_member.field_byu_f_d_emeritus_or    
     - field.field.node.byu_faculty_member.field_byu_f_d_first_name
     - field.field.node.byu_faculty_member.field_byu_f_d_first_name_or
     - field.field.node.byu_faculty_member.field_byu_f_d_last_name
@@ -203,6 +205,20 @@ content:
     region: content
   field_byu_f_d_email_or:
     weight: 17
+    settings:
+      display_label: true
+    third_party_settings: {  }
+    type: boolean_checkbox
+    region: content
+  field_byu_f_d_emeritus:
+    weight: 49
+    settings:
+      display_label: true
+    third_party_settings: {  }
+    type: boolean_checkbox
+    region: content
+  field_byu_f_d_emeritus_or:
+    weight: 50
     settings:
       display_label: true
     third_party_settings: {  }

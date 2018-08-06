@@ -154,11 +154,11 @@ class BYUFacultyDirectoryController extends ControllerBase {
     /**
      * Loads all faculty members matching the provided field and field value, and returns them in an array
      */
-    public function load_faculty_members(string $field, string $field_byu_f_d_value){
+    public function load_faculty_members(string $field, string $field_value){
         $faculty_members = array();
         $nodes = \Drupal::entityTypeManager()
             ->getStorage('node')
-            ->loadByProperties([$field => $field_byu_f_d_value]);
+            ->loadByProperties([$field => $field_value]);
         foreach($nodes as $node){
             $faculty_members[] = $node->toArray();
         }
