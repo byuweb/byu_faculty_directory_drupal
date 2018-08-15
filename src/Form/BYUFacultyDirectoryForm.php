@@ -458,7 +458,7 @@ class BYUFacultyDirectoryForm extends ConfigFormBase {
 
                 //Filter by department (for testing, reduces download/parsing time)
                 
-                if ((string)($indexentry->attributes()->{'text'}) === $section){
+                if ((string)($indexentry->attributes()->{'text'}) === "ENG: Electrical Engineering"){
                     $netids[] = (string)$record->attributes()->$netid_attribute;
                     break;
                 }
