@@ -388,7 +388,7 @@ class BYUFacultyDirectoryForm extends ConfigFormBase {
 
         if ($fetch == 1) {
             try {
-                $this->getFacultyFromOIT();
+                $this->getFacultyFromOIT('ENG: Electrical Engineering');
                 drupal_set_message(t('Successfully retrieved faculty data from OIT!'), 'status');
             } catch (\Exception $e) {
                 drupal_set_message($e->getMessage(), 'error');
@@ -432,7 +432,7 @@ class BYUFacultyDirectoryForm extends ConfigFormBase {
      * Used by parent mode
      * @throws \Exception upon failed connection to OIT database
      */
-    private function getFacultyFromOIT(){
+    private function getFacultyFromOIT($section){
         $api_key = \Drupal::config('byu_faculty_directory.config')->get('oit_api_key');
 
         try {
@@ -454,15 +454,14 @@ class BYUFacultyDirectoryForm extends ConfigFormBase {
 
             foreach($record->children('dmd', true)->IndexEntry as $indexentry){
 
-                $netids[] = (string)$record->attributes()->$netid_attribute;
+                //$netids[] = (string)$record->attributes()->$netid_attribute;
 
-                //Filter by ChemE (for testing, reduces download/parsing time)
-                /*
-                if ((string)($indexentry->attributes()->{'text'}) === 'ENG: Chemical Engineering'){
+                //Filter by department (for testing, reduces download/parsing time)
+                
+                if ((string)($indexentry->attributes()->{'text'}) === $section){
                     $netids[] = (string)$record->attributes()->$netid_attribute;
                     break;
                 }
-                */
 
             }
         }
