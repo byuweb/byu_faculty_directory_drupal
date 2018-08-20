@@ -457,8 +457,24 @@ class BYUFacultyDirectoryForm extends ConfigFormBase {
                 //$netids[] = (string)$record->attributes()->$netid_attribute;
 
                 //Filter by department (for testing, reduces download/parsing time)
-                
-                if ((string)($indexentry->attributes()->{'text'}) === 'ENG: Chemical Engineering'){
+
+                if ((string)($indexentry->attributes()->{'text'}) === 'ENG: Chemical Engineering') {
+                    $netids[] = (string)$record->attributes()->$netid_attribute;
+                    break;
+                }
+                if ((string)($indexentry->attributes()->{'text'}) === 'ENG: Mechanical Engineering') {
+                    $netids[] = (string)$record->attributes()->$netid_attribute;
+                    break;
+                }
+                if ((string)($indexentry->attributes()->{'text'}) === 'ENG: Civil and Environmental Engineering') {
+                    $netids[] = (string)$record->attributes()->$netid_attribute;
+                    break;
+                }
+                if ((string)($indexentry->attributes()->{'text'}) === 'ENG: Electrical and Computer Engineering') {
+                    $netids[] = (string)$record->attributes()->$netid_attribute;
+                    break;
+                }
+                if ((string)($indexentry->attributes()->{'text'}) === 'ENG: Technology'){
                     $netids[] = (string)$record->attributes()->$netid_attribute;
                     break;
                 }
