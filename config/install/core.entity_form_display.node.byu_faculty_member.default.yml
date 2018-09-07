@@ -4,6 +4,8 @@ dependencies:
   config:
     - field.field.node.byu_faculty_member.field_byu_f_d_awards
     - field.field.node.byu_faculty_member.field_byu_f_d_awards_or
+    - field.field.node.byu_faculty_member.field_byu_f_d_active
+    - field.field.node.byu_faculty_member.field_byu_f_d_active_or
     - field.field.node.byu_faculty_member.field_byu_f_d_biography
     - field.field.node.byu_faculty_member.field_byu_f_d_biography_or
     - field.field.node.byu_faculty_member.field_byu_f_d_committees
@@ -85,6 +87,21 @@ content:
     region: content
   field_byu_f_d_awards_or:
     weight: 35
+    settings:
+      display_label: true
+    third_party_settings: {  }
+    type: boolean_checkbox
+    region: content
+  field_byu_f_d_active:
+    weight: 49
+    settings:
+      rows: 5
+      placeholder: ''
+    third_party_settings: {  }
+    type: string_textarea
+    region: content
+  field_byu_f_d_active_or:
+    weight: 50
     settings:
       display_label: true
     third_party_settings: {  }
